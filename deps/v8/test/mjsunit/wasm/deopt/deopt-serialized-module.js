@@ -30,6 +30,7 @@
 //    This leads to a DCHECK failure then as the outstanding_baseline_units_
 //    should never be negative.
 
+// Flags: --enable-wasm-serialization
 // Speculative inlining via deopts required:
 // Flags: --wasm-inlining --wasm-deopt
 // Dynamic tier-up required:
@@ -80,10 +81,10 @@ d8.file.execute("test/mjsunit/wasm/wasm-module-builder.js");
     assertEquals(42, wasm.main(30, wasm.add));
   }
   { // Replace module with deserialized variant.
-    let buff = %SerializeWasmModule(module);
+    let buff = d8.wasm.serializeModule(module);
     module = null;
     gc(); gc();
-    module = %DeserializeWasmModule(buff, wire_bytes);
+    module = d8.wasm.deserializeModule(buff, wire_bytes);
   }
   {
     let wasm = new WebAssembly.Instance(module).exports;

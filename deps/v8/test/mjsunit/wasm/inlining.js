@@ -2,7 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-// Flags: --wasm-inlining --no-liftoff --allow-natives-syntax
+// Flags: --enable-wasm-serialization
+// Flags: --wasm-inlining --no-liftoff
 
 d8.file.execute("test/mjsunit/wasm/wasm-module-builder.js");
 
@@ -683,7 +684,7 @@ d8.file.execute("test/mjsunit/wasm/wasm-module-builder.js");
   // Serialize and deserialize the module to verify that the inlining positions
   // are properly "transformed" here.
   print("Repeat test with serialized module.")
-  module = %DeserializeWasmModule(%SerializeWasmModule(module), wire_bytes);
+  module = d8.wasm.deserializeModule(d8.wasm.serializeModule(module), wire_bytes);
   instance = new WebAssembly.Instance(module, {});
   TestStackTrace(instance.exports.main);
 
@@ -784,7 +785,7 @@ d8.file.execute("test/mjsunit/wasm/wasm-module-builder.js");
   // Serialize and deserialize the module to verify that the inlining positions
   // are properly "transformed" here.
   print("Repeat test with serialized module.")
-  module = %DeserializeWasmModule(%SerializeWasmModule(module), wire_bytes);
+  module = d8.wasm.deserializeModule(d8.wasm.serializeModule(module), wire_bytes);
   instance = new WebAssembly.Instance(module, {});
   TestStackTrace(instance.exports.main);
 
@@ -872,7 +873,7 @@ d8.file.execute("test/mjsunit/wasm/wasm-module-builder.js");
   // Serialize and deserialize the module to verify that the inlining positions
   // are properly "transformed" here.
   print("Repeat test with serialized module.")
-  module = %DeserializeWasmModule(%SerializeWasmModule(module), wire_bytes);
+  module = d8.wasm.deserializeModule(d8.wasm.serializeModule(module), wire_bytes);
   instance = new WebAssembly.Instance(module, {});
   TestStackTrace(instance.exports.main);
 
@@ -954,7 +955,7 @@ d8.file.execute("test/mjsunit/wasm/wasm-module-builder.js");
   // Serialize and deserialize the module to verify that the inlining positions
   // are properly "transformed" here.
   print("Repeat test with serialized module.")
-  module = %DeserializeWasmModule(%SerializeWasmModule(module), wire_bytes);
+  module = d8.wasm.deserializeModule(d8.wasm.serializeModule(module), wire_bytes);
   instance = new WebAssembly.Instance(module, {});
   TestStackTrace(instance.exports.main);
 
